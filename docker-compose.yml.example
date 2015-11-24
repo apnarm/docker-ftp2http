@@ -1,0 +1,13 @@
+f2hd:
+    build: .
+    ports:
+     - "21:2121"
+     - "1024-1048:1024-1048"
+    environment:
+        masquerade_address: localhost
+        http_url: http://localhost:8000/process-file/
+        http_basic_auth: 'true'
+        authentication_backend: ?authenticate
+        ssl_cert_path: ''
+        user_account: (generate with: ftp2http -a)
+    restart: always
