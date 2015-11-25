@@ -1,6 +1,7 @@
-f2hd:
+ftp2http:
     build: .
     ports:
+     - "20:20"
      - "21:2121"
      - "1024-1048:1024-1048"
     environment:
@@ -9,5 +10,7 @@ f2hd:
         http_basic_auth: 'true'
         authentication_backend: ?authenticate
         ssl_cert_path: ''
-        user_account: (generate with: ftp2http -a)
+        # Can generate a user account with: ftp2http -a
+        # (https://github.com/apnarm/ftp2http#user-accounts-in-the-the-configuration-file)
+        user_account: ''
     restart: always
