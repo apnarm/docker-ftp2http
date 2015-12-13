@@ -4,26 +4,26 @@
 
 # The FTP server listens on this address and port unless
 # ftp2http is started with a socket file descriptor argument.
-listen_host: {{ listen_host|default('0.0.0.0') }}
-listen_port: {{ listen_port|default('2121') }}
+listen_host: {{ FTP_LISTEN_HOST|default('0.0.0.0') }}
+listen_port: {{ FTP_LISTEN_PORT|default('2121') }}
 
 # Restrict the ports to use for passive (PASV) data transfers.
 # Ports will be random, as assigned by the kernel, if not specified here.
-passive_port_min: {{ passive_port_min|default('1024') }}
-passive_port_max: {{ passive_port_max|default('1048') }}
+passive_port_min: {{ PASSIVE_PORT_MIN|default('1024') }}
+passive_port_max: {{ PASSIVE_PORT_MAX|default('1048') }}
 
 # Specify the address to use in passive (PASV) mode replies. Can be useful
 # for servers which are behind a NAT or have multiple network interfaces.
-masquerade_address: {{ masquerade_address }}
+masquerade_address: {{ FTP_MASQUERADE_ADDRESS }}
 
 # Files are pushed to this URL.
-http_url: {{ http_url }}
+http_url: {{ HTTP_URL }}
 
 # Reuse FTP authentication details for HTTP basic authentication.
 # This requires matching accounts configured in the URL's system.
 # Uncomment the next line to enable this feature.
-{% if http_basic_auth %}
-http_basic_auth: {{ http_basic_auth }}
+{% if HTTP_BASIC_AUTH %}
+http_basic_auth: {{ HTTP_BASIC_AUTH }}
 {% endif %}
 
 # Authenticate FTP users by accessing a URL using HTTP basic authentication.
@@ -31,20 +31,20 @@ http_basic_auth: {{ http_basic_auth }}
 # return a 2xx response if the authentication details are valid, or any other
 # response for invalid details. Multiple authentication_backend lines can be
 # defined to have multiple URLs checked for authentication validity.
-{% if authentication_backend %}
-authentication_backend: {{ authentication_backend }}
+{% if AUTHENTICATION_BACKEND %}
+authentication_backend: {{ AUTHENTICATION_BACKEND }}
 {% endif %}
 
 ################################################################################
 # Optionally specify a certificate file path to enable FTPS
 ################################################################################
-{% if ssl_cert_path %}
-ssl_cert_path: {{ ssl_cert_path }}
+{% if SSL_CERT_PATH %}
+ssl_cert_path: {{ SSL_CERT_PATH }}
 {% endif %}
 
 ################################################################################
 # User accounts (generate with: ftp2http -a)
 ################################################################################
-{% if user_account %}
-user: {{ user_account }}
+{% if USER_ACCOUNT %}
+user: {{ USER_ACCOUNT }}
 {% endif %}

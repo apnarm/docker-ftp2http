@@ -1,0 +1,18 @@
+ftp2http:
+    build: .
+    restart: always
+    volumes:
+        - /etc/localtime:/etc/localtime:ro
+    ports:
+     - "20:20"
+     - "21:${FTP_LISTEN_PORT}"
+     - "${PASSIVE_PORT_MIN}-${PASSIVE_PORT_MAX}:${PASSIVE_PORT_MIN}-${PASSIVE_PORT_MAX}"
+    environment:
+        FTP_MASQUERADE_ADDRESS: ${FTP_MASQUERADE_ADDRESS}
+        HTTP_URL: ${HTTP_URL}
+        HTTP_BASIC_AUTH: 'true'
+        AUTHENTICATION_BACKEND: ?authenticate
+        SSL_CERT_PATH: ''
+        # Can generate a user account with: ftp2http -a
+        # (https://github.com/apnarm/ftp2http#user-accounts-in-the-the-configuration-file)
+        USER_ACCOUNT: ${USER_ACCOUNT}

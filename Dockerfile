@@ -3,9 +3,6 @@ FROM gliderlabs/alpine:3.2
 WORKDIR /app
 COPY . /app
 
-# Add ftp2http config
-COPY files/etc/ftp2http.conf.j2 /etc/
-
 # Required packages for ftp2http
 RUN apk --update add \
     libffi-dev \
@@ -19,6 +16,9 @@ RUN apk --update add --virtual build-dependencies build-base py-pip python-dev \
     && pip install ftp2http \
     && apk del build-dependencies
 
-# On boot, update the config with correct environment settings
+# Add ftp2http config template.
+COPY files/etc/ftp2http.conf.j2 /etc/
+
+# On boot, create the config with correct environment settings.
 RUN chmod +x setup.sh
 ENTRYPOINT /app/setup.sh && ftp2http
